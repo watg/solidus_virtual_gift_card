@@ -12,7 +12,6 @@ class Spree::VirtualGiftCard < Spree::Base
 
   validates :amount, numericality: { greater_than: 0 }
   validates :redemption_code, uniqueness: { conditions: -> { where(redeemed_at: nil, redeemable: true) } }
-  validates :purchaser_id, presence: { if: proc { |gc| gc.redeemable? } }
 
   scope :unredeemed, -> { where(redeemed_at: nil) }
   scope :by_redemption_code, ->(redemption_code) { where(redemption_code: redemption_code) }
