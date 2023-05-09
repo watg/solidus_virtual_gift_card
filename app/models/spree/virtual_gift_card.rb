@@ -114,8 +114,8 @@ class Spree::VirtualGiftCard < Spree::Base
   end
 
   def send_email
-    Spree::GiftCardMailer.gift_card_email(self).deliver_later
-    update!(sent_at: DateTime.now)
+    # We do not want to send the default Solidus Virtual Gift Card email,
+    # so this method has been stubbed out.
   end
 
   private

@@ -5,8 +5,6 @@ module SolidusVirtualGiftCard
     module OrderDecorator
       def self.prepended(base)
         base.class_eval do
-          state_machine.after_transition to: :complete, do: :send_gift_card_emails
-
           has_many :gift_cards, through: :line_items
         end
       end
@@ -31,11 +29,8 @@ module SolidusVirtualGiftCard
       end
 
       def send_gift_card_emails
-        gift_cards.each do |gift_card|
-          if gift_card.send_email_at.nil? || gift_card.send_email_at <= DateTime.now
-            gift_card.send_email
-          end
-        end
+        # We do not want to send the default Solidus Virtual Gift Card email,
+        # so this method has been stubbed out.
       end
 
       ::Spree::Order.prepend self

@@ -320,19 +320,4 @@ describe Spree::VirtualGiftCard do
       expect(subject).to eq formatted_redemption_code
     end
   end
-
-  describe '#send_email' do
-    subject { gift_card.send_email }
-
-    let(:gift_card) { create(:redeemable_virtual_gift_card) }
-
-    it 'sends the gift card email' do
-      expect(Spree::GiftCardMailer).to receive(:gift_card_email).with(gift_card).and_return(double(deliver_later: true))
-      subject
-    end
-
-    it 'sets sent_at' do
-      expect { subject }.to change(gift_card, :sent_at)
-    end
-  end
 end
